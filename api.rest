@@ -1,0 +1,30 @@
+### EXAMPLE: BORED API
+GET https://www.boredapi.com/api/activity
+
+### EXAMPLE: Fake data
+# GET https://fakerapi.it/api/v1/persons
+https://fakerapi.it/api/v1/companies?_quantity=5
+
+### 1) RANDOM DOG PICTURE
+
+GET https://dog.ceo/api/breeds/image/random
+
+### 2) BEERS
+
+GET https://api.punkapi.com/v2/beers
+
+### 3) POKEMON
+
+GET https://pokeapi.co/api/v2/pokemon/vileplume
+
+### 4) NEWS API.. you'll need to find the right URL for this one!
+
+
+###
+GET https://api.api-ninjas.com/v1/planets?name=jupiter
+x-api-key: 5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8
+
+###
+
+GET https://api.le-systeme-solaire.net/rest/bodies/neptune
+
