@@ -1,9 +1,7 @@
 
 const mercury = document.querySelector('.mercury')
 // console.log(mercury);
-
 const mercuryButton = document.querySelector('#mercurybutton')
-// console.log(mercuryButton);
 
 const venus = document.querySelector('.venus')
 const venusButton = document.querySelector('#venusbutton')
@@ -27,254 +25,137 @@ const neptune = document.querySelector('.neptune')
 const neptuneButton = document.querySelector('#neptunebutton')
 
 
+async function getPlanet(name, element) {
+    const resp = await fetch('https://api.api-ninjas.com/v1/planets?name=' + name, {
+        headers: { 'X-Api-Key': "5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8" },
+    })
+    const data = await resp.json()
+    console.log(data);
+    console.log(typeof data);
+    const planetData = data[0]
+
+    element.innerHTML = `
+                         Name: ${planetData.name} <br>
+            Distance (Light Years): ${planetData.distance_light_year}<br>
+                                 Mass (Relative to Jupiter): ${planetData.mass}<br>
+                                    Length of Year: ${planetData.period} days<br>
+                                        Radius (Relative to Jupiter): ${planetData.radius}<br>
+                                            Semi-Major Axis (AU): ${planetData.semi_major_axis}<br>
+                                                 Temperature (Kelvin): ${planetData.temperature}<br> `
+}
+
+const togglePlanets = {
+    mercury: false,
+    venus: false,
+    earth: false,
+    mars: false,
+    jupiter: false,
+    saturn: false,
+    uranus: false,
+    neptune: false,
+
+}
 
 
+function planetClick(element, description, button, name) {
 
-// async function getPlanet(planet) {
-//     const resp = await fetch('https://api.api-ninjas.com/v1/planets?name=' + planet, {
-//         headers: { 'X-Api-Key': "5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8" },
-//     })
-//     const data = await resp.json()
-//     console.log(data);
-//     console.log(typeof data);
-//     // planets.push(data)
-// }
+    if (togglePlanets[name]) {
 
-
-let isClicked = false
-
-
-mercuryButton.addEventListener('click', () => {
-
-    async function getMercury() {
-        const resp = await fetch('https://api.api-ninjas.com/v1/planets?name=mercury', {
-            headers: { 'X-Api-Key': "5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8" },
-        })
-        const data = await resp.json()
-        console.log(data);
-        console.log(typeof data);
-        const mercuryData = data[0]
-
-        mercury.innerHTML = `
-            Name: ${mercuryData.name} <br>
-                Distance (Light Years): ${mercuryData.distance_light_year}<br>
-                    Mass (Relative to Jupiter): ${mercuryData.mass}<br>
-                        Length of Year: ${mercuryData.period} days<br>
-                            Radius (Relative to Jupiter): ${mercuryData.radius}<br>
-                                Semi-Major Axis (AU): ${mercuryData.semi_major_axis}<br>
-                                    Temperature (Kelvin): ${mercuryData.temperature}<br> `
-
-
-    }
-
-
-    if (isClicked) {
-
-        mercury.innerHTML = 'Mercury is the first planet from the Sun and the smallest planet in the Solar System. It is a terrestrial planet with a heavily cratered surface due to the planet having no geological activity and an extremely tenuous atmosphere (called an exosphere).'
-        mercuryButton.innerHTML = 'Discover'
-        mercuryButton.classList.remove('buttonclicked')
-        isClicked = false
+        element.innerHTML = description
+        button.innerHTML = 'Discover'
+        button.classList.remove('buttonclicked')
+        togglePlanets[name] = false
 
     } else {
 
 
-        getMercury()
-        mercuryButton.classList.add('buttonclicked')
-        mercuryButton.innerHTML = 'sDescription'
-        isClicked = true
+        getPlanet(name, element)
+        button.classList.add('buttonclicked')
+        button.innerHTML = 'Description'
+        togglePlanets[name] = true
     }
+
+
 }
 
 
-)
 
+mercuryButton.addEventListener('click', () => {
 
-
-
-
-// mercuryButton.addEventListener('click', () => {
-//     async function getMercury() {
-//         const resp = await fetch('https://api.api-ninjas.com/v1/planets?name=mercury', {
-//             headers: { 'X-Api-Key': "5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8" },
-//         })
-//         const data = await resp.json()
-//         console.log(data);
-//         console.log(typeof data);
-//         const mercuryData = data[0]
-
-//         mercury.innerHTML = `
-//             Name: ${mercuryData.name} <br>
-//                 Distance (Light Years): ${mercuryData.distance_light_year}<br>
-//                     Mass (Relative to Jupiter): ${mercuryData.mass}<br>
-//                         Length of Year: ${mercuryData.period} days<br>
-//                             Radius (Relative to Jupiter): ${mercuryData.radius}<br>
-//                                 Semi-Major Axis (AU): ${mercuryData.semi_major_axis}<br>
-//                                     Temperature (Kelvin): ${mercuryData.temperature}<br> `
-//     }
-
-//     getMercury()
-// })
-
+    planetClick(
+        mercury,
+        'Mercury is the first planet from the Sun and the smallest planet in the Solar System. It is a terrestrial planet with a heavily cratered surface due to the planet having no geological activity and an extremely tenuous atmosphere (called an exosphere).',
+        mercuryButton,
+        'mercury'
+    )
+})
 
 venusButton.addEventListener('click', () => {
-    async function getVenus() {
-        const resp = await fetch('https://api.api-ninjas.com/v1/planets?name=venus', {
-            headers: { 'X-Api-Key': "5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8" },
-        })
-        const data = await resp.json()
-        console.log(data);
-        console.log(typeof data);
-        const venusData = data[0]
 
-        venus.innerHTML = `
-            Name: ${venusData.name} <br>
-                Distance (Light Years): ${venusData.distance_light_year}<br>
-                    Mass (Relative to Jupiter): ${venusData.mass}<br>
-                        Length of Year: ${venusData.period} days<br>
-                            Radius (Relative to Jupiter): ${venusData.radius}<br>
-                                Semi-Major Axis (AU): ${venusData.semi_major_axis}<br>
-                                    Temperature (Kelvin): ${venusData.temperature}<br> `
-    }
-
-    getVenus()
+    planetClick(
+        venus,
+        'Venus is the second planet from the Sun. It is a rocky planet with the thickest atmosphere of all the rocky bodies in the Solar System, and the only one with a mass and size that is close to that of its orbital neighbour Earth.',
+        venusButton,
+        'venus'
+    )
 })
 
 earthButton.addEventListener('click', () => {
-    async function getEarth() {
-        const resp = await fetch('https://api.api-ninjas.com/v1/planets?name=earth', {
-            headers: { 'X-Api-Key': "5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8" },
-        })
-        const data = await resp.json()
-        console.log(data);
-        console.log(typeof data);
-        const earthData = data[0]
 
-        earth.innerHTML = `
-            Name: ${earthData.name} <br>
-                Distance (Light Years): ${earthData.distance_light_year}<br>
-                    Mass (Relative to Jupiter): ${earthData.mass}<br>
-                        Length of Year: ${earthData.period} days<br>
-                            Radius (Relative to Jupiter): ${earthData.radius}<br>
-                                Semi-Major Axis (AU): ${earthData.semi_major_axis}<br>
-                                    Temperature (Kelvin): ${earthData.temperature}<br> `
-    }
-
-    getEarth()
+    planetClick(
+        earth,
+        'Earth is the third planet from the Sun and the only place known in the universe where life has originated and found habitability. Earth is the only planet known to sustain liquid surface water, with ocean water extending over 70.8% of the planet, making it an ocean world.',
+        earthButton,
+        'earth'
+    )
 })
 
 marsButton.addEventListener('click', () => {
-    async function getMars() {
-        const resp = await fetch('https://api.api-ninjas.com/v1/planets?name=mars', {
-            headers: { 'X-Api-Key': "5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8" },
-        })
-        const data = await resp.json()
-        console.log(data);
-        console.log(typeof data);
-        const marsData = data[0]
 
-        mars.innerHTML = `
-            Name: ${marsData.name} <br>
-                Distance (Light Years): ${marsData.distance_light_year}<br>
-                    Mass (Relative to Jupiter): ${marsData.mass}<br>
-                        Length of Year: ${marsData.period} days<br>
-                            Radius (Relative to Jupiter): ${marsData.radius}<br>
-                                Semi-Major Axis (AU): ${marsData.semi_major_axis}<br>
-                                    Temperature (Kelvin): ${marsData.temperature}<br> `
-    }
-
-    getMars()
+    planetClick(
+        mars,
+        'Mars is the fourth planet and the furthest terrestrial planet from the Sun. The reddish color of its surface is due to finely grained iron(III) oxide dust in the soil, giving it the nickname "the Red Planet".',
+        marsButton,
+        'mars'
+    )
 })
 
-
 jupiterButton.addEventListener('click', () => {
-    async function getJupiter() {
-        const resp = await fetch('https://api.api-ninjas.com/v1/planets?name=jupiter', {
-            headers: { 'X-Api-Key': "5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8" },
-        })
-        const data = await resp.json()
-        console.log(data);
-        console.log(typeof data);
-        const jupiterData = data[0]
 
-        jupiter.innerHTML = `
-            Name: ${jupiterData.name} <br>
-                Distance (Light Years): ${jupiterData.distance_light_year}<br>
-                    Mass (Relative to Jupiter): ${jupiterData.mass}<br>
-                        Length of Year: ${jupiterData.period} days<br>
-                            Radius (Relative to Jupiter): ${jupiterData.radius}<br>
-                                Semi-Major Axis (AU): ${jupiterData.semi_major_axis}<br>
-                                    Temperature (Kelvin): ${jupiterData.temperature}<br> `
-    }
-
-    getJupiter()
+    planetClick(
+        jupiter,
+        'Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a gas giant with a mass more than two and a half times that of all the other planets in the Solar System combined, and slightly less than one one-thousandth the mass of the Sun.',
+        jupiterButton,
+        'jupiter'
+    )
 })
 
 saturnButton.addEventListener('click', () => {
-    async function getSaturn() {
-        const resp = await fetch('https://api.api-ninjas.com/v1/planets?name=saturn', {
-            headers: { 'X-Api-Key': "5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8" },
-        })
-        const data = await resp.json()
-        console.log(data);
-        console.log(typeof data);
-        const saturnData = data[0]
 
-        saturn.innerHTML = `
-            Name: ${saturnData.name} <br>
-                Distance (Light Years): ${saturnData.distance_light_year}<br>
-                    Mass (Relative to Jupiter): ${saturnData.mass}<br>
-                        Length of Year: ${saturnData.period} days<br>
-                            Radius (Relative to Jupiter): ${saturnData.radius}<br>
-                                Semi-Major Axis (AU): ${saturnData.semi_major_axis}<br>
-                                    Temperature (Kelvin): ${saturnData.temperature}<br> `
-    }
-
-    getSaturn()
+    planetClick(
+        saturn,
+        'Saturn is the sixth planet from the Sun and the second-largest in the Solar System, after Jupiter. It is a gas giant with an average radius of about nine and a half times that of Earth.',
+        saturnButton,
+        'saturn'
+    )
 })
 
 uranusButton.addEventListener('click', () => {
-    async function getUranus() {
-        const resp = await fetch('https://api.api-ninjas.com/v1/planets?name=uranus', {
-            headers: { 'X-Api-Key': "5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8" },
-        })
-        const data = await resp.json()
-        console.log(data);
-        console.log(typeof data);
-        const uranusData = data[0]
 
-        uranus.innerHTML = `
-            Name: ${uranusData.name} <br>
-                Distance (Light Years): ${uranusData.distance_light_year}<br>
-                    Mass (Relative to Jupiter): ${uranusData.mass}<br>
-                        Length of Year: ${uranusData.period} days<br>
-                            Radius (Relative to Jupiter): ${uranusData.radius}<br>
-                                Semi-Major Axis (AU): ${uranusData.semi_major_axis}<br>
-                                    Temperature (Kelvin): ${uranusData.temperature}<br> `
-    }
-
-    getUranus()
+    planetClick(
+        uranus,
+        'Uranus is the seventh planet from the Sun and is a gaseous cyan ice giant. Most of Uranus is made out of water, ammonia, and methane in a supercritical phase of matter, which in astronomy is called "ice" or volatiles.',
+        uranusButton,
+        'uranus'
+    )
 })
 
-
 neptuneButton.addEventListener('click', () => {
-    async function getNeptune() {
-        const resp = await fetch('https://api.api-ninjas.com/v1/planets?name=neptune', {
-            headers: { 'X-Api-Key': "5SRD/spXcrXWHoETKcaYgQ==bbJZYNVbaxrFkwg8" },
-        })
-        const data = await resp.json()
-        console.log(data);
-        console.log(typeof data);
-        const neptuneData = data[0]
 
-        neptune.innerHTML = `
-            Name: ${neptuneData.name} <br>
-                Distance (Light Years): ${neptuneData.distance_light_year}<br>
-                    Mass (Relative to Jupiter): ${neptuneData.mass}<br>
-                        Length of Year: ${neptuneData.period} days<br>
-                            Radius (Relative to Jupiter): ${neptuneData.radius}<br>
-                                Semi-Major Axis (AU): ${neptuneData.semi_major_axis}<br>
-                                    Temperature (Kelvin): ${neptuneData.temperature}<br> `
-    }
-
-    getNeptune()
+    planetClick(
+        neptune,
+        'Neptune is the eighth planet from the Sun and the farthest known planet in the Solar System. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet.',
+        neptuneButton,
+        'neptune'
+    )
 })
