@@ -79,7 +79,6 @@ function planetClick(element, description, button, name) {
 }
 
 
-
 mercuryButton.addEventListener('click', () => {
 
     planetClick(
